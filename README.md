@@ -1,6 +1,6 @@
 # PNDMDAORegistry challenge from PNM ctf
 
-This is the writeup for the PNMDAORegistry challenge which was part of the PNM ctf. Link: {}
+This is the writeup for the PNMDAORegistry challenge which was part of the PNM ctf. Link: http://win.pwnednomore.org/
 
 ## The challenge setup
 
@@ -48,7 +48,7 @@ balances[msg.sender] =
 ```
 This balance is also updated later on in the `pwn(uint256 _amount` function. Here, we see that the `_amount` value must be equal to the sum of `records1[sender] + records2[sender]`, otherwise the function will return. But if the `_amount` value is correct, it will decrease the balance by this `_amount` and also update the values stored in `records1[sender]` and `records2[sender]`. 
 
-The pattern here is that of the fibonacci sequence. Specifically, `_amount == records1 + records2` and the new `_amount` value is pushed into `records2` and `records1` takes the old value of `records2`. We can further validate this by looking at the Fibonacci sequence itself---the 125th term is {}
+The pattern here is that of the fibonacci sequence. Specifically, `_amount == records1 + records2` and the new `_amount` value is pushed into `records2` and `records1` takes the old value of `records2`. We can further validate this by looking at the Fibonacci sequence itself---the 125th term is 59425114757512643212875125 (ref: https://www.omnicalculator.com/math/fibonacci).
 
 So, if we send the right input to this function, it will decrease the balance, but that still doesn't reduce it to the value that we want, and the function also does not allow us to call it repeatedly because it sets a flag which prevents us from doing that. This is answered with the following line:
 ```

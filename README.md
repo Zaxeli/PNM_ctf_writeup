@@ -95,3 +95,25 @@ This gave me an indication that it might be gas limit issues. So, I tried to deb
 
 Using this tool, I could identify that the issue was an 'Out of Gas' problem. So, I increased the gas limit to `1,663,874 * 10`. When I tried the exploit with this gas limit, it would work and I could get the flag.
 
+## Redoing the exploit:
+The CTF is over and the challenge is probably taken down now. So, in order to recreate this exploit, do this:
+
+1. Clone this repo
+2. Install node modules, hardhat, etc.
+3. Instead of using the address of the contract deployed by the challenge, do one of the following:
+   1. Get the exploit contract to deploy it by itself and do the exploit on that.
+      1. Uncomment out the lines:
+      ```
+      registry = new PNMDAORegistry();
+      ```
+      and comment out the line:
+      ```
+      registry = PNMDAORegistry(target);
+      ```
+   2. Deploy the target contract yourself and then replace the target address in the exploit contract at this line:
+   ```
+   address target = 0xa145293e9F7cb2c549AB96d71333D1bea85aA44A;
+   ```
+
+
+
